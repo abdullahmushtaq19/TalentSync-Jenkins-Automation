@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./server
+    container_name: talentsync-server
+    ports:
+      - "5000:5000"  # exposes to host
+    environment:
+      - MONGO_URL=${MONGO_URL}
+    networks:
+      - talentsync-network
+
+  frontend:
+    build: ./client
+    container_name: talentsync-client
+    ports:
+      - "80:80"  # expose frontend
+    depends_on:
+      - backend
+    networks:
+      - talentsync-network
+
+networks:
+  talentsync-network:
+    driver: bridge

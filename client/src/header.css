@@ -1,0 +1,47 @@
+.custom-link{
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+.custom-link:hover{
+    
+    text-decoration: underline;
+    text-decoration-color:gainsboro;
+    bottom: 5px;
+}
+.custom-link.active::after{
+    text-decoration: underline;
+}
+.custom-link:active{
+    text-decoration: underline;
+}
+
+ul li{
+    list-style-type: none;
+    margin-left: 80px;   
+}
+.container{
+    display: inline;
+    justify-items: center;
+    
+   
+}
+.header{
+    background-color: #2d545e;
+}
+li{
+    display: inline;    
+}
+.custom-link-logo{
+    font-size:30px;
+    text-decoration: none;
+    color:white;
+    font-weight:bolder;
+    padding-right: 60px;
+    
+}
+.header{
+    border-bottom: 1px solid;
+    border-color:black;
+}

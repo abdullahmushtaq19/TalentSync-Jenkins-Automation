@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+.env
+.DS_Store
+# keep build in the image (we serve client build from server/build)
+# build
+coverage
+dist
