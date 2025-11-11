@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');  // <-- needed for static file serving
 const jobRoutes = require('./routes/jobRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const salarayRoutes = require('./routes/salaryRoutes');
@@ -27,12 +26,8 @@ app.use(companyRoutes);
 app.use(salarayRoutes);
 app.use(userRoutes);
 
-// Serve React frontend
-app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// Note: Frontend is now served by a dedicated nginx container (see docker-compose.yml)
+// Backend only serves API endpoints, no static file serving needed
 
 // Connect to MongoDB
 const mongoUrl = process.env.MONGO_URL;

@@ -1,43 +1,52 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  backend:
-    image: node:18
-    container_name: talentsync-backend
-    working_dir: /app
+  # Frontend builder: runs npm install && npm run build, then exits
+  frontend-builder:
+    image: node:20-slim
+    container_name: talentsync-frontend-builder
+    working_dir: /workspace/client
     volumes:
-      - ./server:/app           # Mount server code from GitHub
-      - server_node_modules:/app/node_modules  # Persist node_modules inside container
-    ports:
-      - "5001:5000"
-    environment:
-      - MONGO_URL=${MONGO_URL}  # Or any other env variables you set in Jenkins
-    command: sh -c "npm install && npm start"
-    restart: always
-    networks:
-      - talentsync-network
+      - ./client:/workspace/client:delegated
+      - client_node_modules:/workspace/client/node_modules
+    command: sh -c "npm ci --prefer-offline --no-audit --progress=false && npm run build"
+    # Container exits after build completes
 
-  frontend:
-    image: node:18
-    container_name: talentsync-frontend
-    working_dir: /app
+  # Backend: runs npm install && npm start, keeps running
+  backend:
+    image: node:20-slim
+    container_name: talentsync-server
+    working_dir: /workspace/server
     volumes:
-      - ./client:/app           # Mount client code from GitHub
-      - client_node_modules:/app/node_modules  # Persist node_modules inside container
+      - ./server:/workspace/server:delegated
+      - server_node_modules:/workspace/server/node_modules
+    environment:
+      - MONGO_URL=${MONGO_URL}
+    command: sh -c "npm ci --prefer-offline --no-audit --progress=false && npm run start"
     ports:
-      - "8081:80"
+      - "5000:5000"
+    depends_on:
+      - frontend-builder
+    restart: unless-stopped
+
+  # Frontend: nginx serves the built React app from ./client/build
+  frontend:
+    image: nginx:stable-alpine
+    container_name: talentsync-client
+    ports:
+      - "80:80"
+    volumes:
+      - ./client/build:/usr/share/nginx/html:ro
+      - ./client/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - backend
-    command: sh -c "npm install && npm start"
-    restart: always
-    networks:
-      - talentsync-network
+    restart: unless-stopped
 
-# Named volumes for node_modules so they persist inside container
+# Named volumes for node_modules persistence across container restarts
 volumes:
   server_node_modules:
   client_node_modules:
 
 networks:
-  talentsync-network:
+  default:
     driver: bridge
