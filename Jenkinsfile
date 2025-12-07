@@ -2,6 +2,7 @@
 #!/bin/bash
 
 
+
 # Fail fast if any command fails
 set -e
 
