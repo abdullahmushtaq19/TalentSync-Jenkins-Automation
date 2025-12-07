@@ -4,6 +4,8 @@
 # Fail fast if any command fails
 set -e
 
+
+
 # Move to Jenkins workspace
 cd $WORKSPACE
 
