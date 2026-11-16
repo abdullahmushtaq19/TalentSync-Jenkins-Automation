@@ -121,7 +121,7 @@ const employerExperience = {
 
 ```bash
 # 🔥 Clone the repository
-git clone https://github.com/khuramshahz/Job-Application-wesbite.git
+git clone https://github.com/abdullahmushtaq19/TalentSync-Jenkins-Automation.git
 cd Job-Application-wesbite
 
 # 📦 Install all dependencies
@@ -178,20 +178,6 @@ git push origin feature/YourEpicFeature
 # 🎉 Create Pull Request
 ```
 
----
-
-<div align="center">
-
-## 📬 CONNECT WITH THE CREATOR
-
-**🧙‍♂️ Khuram Shahzad**
-*The mastermind behind the magic*
-
-[![GitHub](https://img.shields.io/badge/GitHub-khuramshahz-181717?style=for-the-badge&logo=github)](https://github.com/khuramshahz)
-[![Portfolio](https://img.shields.io/badge/Portfolio-Visit-FF6B6B?style=for-the-badge&logo=web)](https://khuramshahz.dev)
-
----
-
 ## 📜 LICENSE
 
 **MIT License** - Feel free to use, modify, and distribute!
@@ -212,7 +198,7 @@ git push origin feature/YourEpicFeature
 ╚════════════════════════════════════════════════════════╝
 ```
 
-**✨ Made with 💖 by Abdullah Mushtaq & Khuram Shehzad✨**
+**✨ Made with 💖 by Abdullah Mushtaq✨**
 
 *"Connecting talent with opportunity, one animation at a time"* 🚀
 
